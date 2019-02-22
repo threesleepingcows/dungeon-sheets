@@ -1,0 +1,49 @@
+% Changing book to article will make the footers match on each page,
+% rather than alternate every other.
+%
+% Note that the article class does not have chapters.
+\documentclass[letterpaper,10pt,twoside,twocolumn,openany]{dndbook}
+
+% Use babel or polyglossia to automatically redefine macros for terms
+% Armor Class, Level, etc...
+% Default output is in English; captions are located in lib/dndstring-captions.sty.
+% If no captions exist for a language, English will be used.
+%1. To load a language with babel:
+%	\usepackage[<lang>]{babel}
+%2. To load a language with polyglossia:
+%	\usepackage{polyglossia}
+%	\setdefaultlanguage{<lang>}
+\usepackage[english]{babel}
+%usepackage[italian]{babel}
+% For further options (multilanguage documents, hypenations, language environments...)
+% please refer to babel/polyglossia's documentation.
+
+\usepackage[utf8]{inputenc}
+\usepackage{hang}
+\usepackage{lipsum}
+\usepackage{listings}
+
+% Start document
+\begin{document}
+
+\chapter{Features of \newline [[ character.name ]]}
+
+[% for feat in character.features %]
+[% if feat.type == "race" %]
+	\begin{paperbox}{ [[ feat.name ]] }[PhbMauve]
+		[[ feat.__doc__|rst_to_latex ]]	
+	\end{paperbox}
+[% elif feat.type == "class" %]
+	\begin{paperbox}{ [[ feat.name ]] }[PhbLightGreen]
+		[[ feat.__doc__|rst_to_latex ]]	
+	\end{paperbox}
+[% else %]
+	\begin{paperbox}{ [[ feat.name ]] }[DmgCoral]
+		[[ feat.__doc__|rst_to_latex ]]	
+	\end{paperbox}
+[% endif %]
+[% endfor %]
+
+
+% End document
+\end{document}
